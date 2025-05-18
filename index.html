@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aplikasi Belajar Bahasa Inggris</title>
+    <style>
+        /* Reset CSS */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+        }
+        
+        .container {
+            width: 100%;
+            padding: 15px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        header {
+            background: linear-gradient(to right, #2b5876, #4e4376);
+            color: white;
+            padding: 20px;
+            text-align: center;
+            border-bottom: 5px solid #f7d794;
+        }
+        
+        .tombol-navigasi {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 20px 0;
+        }
+        
+        .tombol {
+            padding: 12px 20px;
+            background-color: #e17055;
+            color: white;
+            border: none;
+            border-radius: 30px;
+            font-weight: bold;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+            cursor: pointer;
+        }
+        
+        .kartu-pelajaran {
+            background-color: white;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .tombol-belajar {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(to right, #3498db, #2ecc71);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            margin-top: 15px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #2c3e50;
+            color: white;
+            margin-top: 30px;
+        }
+        
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.7);
+            z-index: 100;
+            overflow-y: auto;
+        }
+        
+        .modal-content {
+            background-color: white;
+            margin: 20px auto;
+            padding: 20px;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 500px;
+            position: relative;
+        }
+        
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 24px;
+            cursor: pointer;
+            color: #888;
+        }
+        
+        /* Kuis Styles */
+        .soal-kuis {
+            margin-bottom: 15px;
+        }
+        
+        .pilihan-jawaban {
+            margin: 10px 0;
+        }
+        
+        .jawaban {
+            display: block;
+            padding: 10px;
+            margin: 5px 0;
+            background-color: #f1f2f6;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        
+        .jawaban:hover {
+            background-color: #dfe4ea;
+        }
+        
+        .hasil-kuis {
+            text-align: center;
+            font-weight: bold;
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #f6e58d;
+            border-radius: 8px;
+        }
+        
+        /* Kosakata Item */
+        .kosakata-item {
+            padding: 12px;
+            margin: 10px 0;
+            background-color: #f5f6fa;
+            border-radius: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .tombol-audio {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Belajar Bahasa Inggris</h1>
+        <p>Belajar dimanapun, kapanpun</p>
+    </header>
+    
+    <div class="container">
+        <div class="tombol-navigasi">
+            <button class="tombol" style="background-color: #3498db;" onclick="bukaBagian('kosakata')">Kosakata</button>
+            <button class="tombol" style="background-color: #e74c3c;" onclick="bukaBagian('tata-bahasa')">Tata Bahasa</button>
+            <button class="tombol" style="background-color: #2ecc71;" onclick="bukaBagian('percakapan')">Percakapan</button>
+            <button class="tombol" style="background-color: #f39c12;" onclick="bukaBagian('kuis')">Kuis</button>
+        </div>
+        
+        <!-- Bagian Kosakata -->
+        <section id="kosakata">
+            <div class="kartu-pelajaran">
+                <h2>Kosakata Sehari-hari</h2>
+                <p>Pelajari kata-kata bahasa Inggris yang sering digunakan sehari-hari.</p>
+                <button class="tombol-belajar" onclick="bukaModal('kosakata-harian')">Mulai Belajar</button>
+            </div>
+            
+            <div class="kartu-pelajaran">
+                <h2>Kosakata Pekerjaan</h2>
+                <p>Kata-kata penting untuk dunia kerja dan profesional.</p>
+                <button class="tombol-belajar" onclick="bukaModal('kosakata-pekerjaan')">Mulai Belajar</button>
+            </div>
+            
+            <div class="kartu-pelajaran">
+                <h2>Kosakata Sekolah</h2>
+                <p>Istilah-istilah yang sering digunakan di lingkungan sekolah.</p>
+                <button class="tombol-belajar" onclick="bukaModal('kosakata-sekolah')">Mulai Belajar</button>
+            </div>
+        </section>
+        
+        <!-- Bagian Tata Bahasa -->
+        <section id="tata-bahasa" style="display:none;">
+            <div class="kartu-pelajaran">
+                <h2>Tenses Dasar</h2>
+                <p>Pelajari bentuk waktu dalam bahasa Inggris (Present, Past, Future).</p>
+                <button class="tombol-belajar" onclick="bukaModal('tenses-dasar')">Mulai Belajar</button>
+            </div>
+            
+            <div class="kartu-pelajaran">
+                <h2>Kalimat Tanya</h2>
+                <p>Cara membuat pertanyaan dalam bahasa Inggris.</p>
+                <button class="tombol-belajar" onclick="bukaModal('kalimat-tanya')">Mulai Belajar</button>
+            </div>
+            
+            <div class="kartu-pelajaran">
+                <h2>Kata Sifat</h2>
+                <p>Pelajari adjective dan cara penggunaannya.</p>
+                <button class="tombol-belajar" onclick="bukaModal('kata-sifat')">Mulai Belajar</button>
+            </div>
+        </section>
+        
+        <!-- Bagian Percakapan -->
+        <section id="percakapan" style="display:none;">
+            <div class="kartu-pelajaran">
+                <h2>Percakapan Sehari-hari</h2>
+                <p>Dialog-dialog sederhana untuk situasi sehari-hari.</p>
+                <button class="tombol-belajar" onclick="bukaModal('percakapan-harian')">Mulai Belajar</button>
+            </div>
+            
+            <div class="kartu-pelajaran">
+                <h2>Percakapan di Restoran</h2>
+                <p>Cara memesan makanan dan minuman dalam bahasa Inggris.</p>
+                <button class="tombol-belajar" onclick="bukaModal('percakapan-restoran')">Mulai Belajar</button>
+            </div>
+            
+            <div class="kartu-pelajaran">
+                <h2>Percakapan di Bandara</h2>
+                <p>Dialog penting saat bepergian dengan pesawat.</p>
+                <button class="tombol-belajar" onclick="bukaModal('percakapan-bandara')">Mulai Belajar</button>
+            </div>
+        </section>
+        
+        <!-- Bagian Kuis -->
+        <section id="kuis" style="display:none;">
+            <div class="kartu-pelajaran">
+                <h2>Kuis Kosakata</h2>
+                <p>Uji pengetahuan kosakata bahasa Inggris Anda.</p>
+                <button class="tombol-belajar" onclick="mulaiKuis('kosakata')">Mulai Kuis</button>
+            </div>
+            
+            <div class="kartu-pelajaran">
+                <h2>Kuis Tata Bahasa</h2>
+                <p>Uji pemahaman tata bahasa Inggris Anda.</p>
+                <button class="tombol-belajar" onclick="mulaiKuis('tata-bahasa')">Mulai Kuis</button>
+            </div>
+        </section>
+    </div>
+    
+    <footer>
+        <p>© 2023 Aplikasi Belajar Bahasa Inggris</p>
+        <p>Dibuat oleh Raka Praditya Darsono</p>
+    </footer>
+    
+    <!-- Modal Kosakata Harian -->
+    <div id="kosakata-harian" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="tutupModal('kosakata-harian')">&times;</span>
+            <h2>Kosakata Sehari-hari</h2>
+            
+            <div class="kosakata-item">
+                <span><strong>Hello</strong> - Halo</span>
+                <button class="tombol-audio" onclick="putarAudio('hello')">▶</button>
+            </div>
+            
+            <div class="kosakata-item">
+                <span><strong>Good morning</strong> - Selamat pagi</span>
+                <button class="tombol-audio" onclick="putarAudio('good-morning')">▶</button>
+            </div>
+            
+            <div class="kosakata-item">
+                <span><strong>Thank you</strong> - Terima kasih</span>
+                <button class="tombol-audio" onclick="putarAudio('thank-you')">▶</button>
+            </div>
+            
+            <div class="kosakata-item">
+                <span><strong>Sorry</strong> - Maaf</span>
+                <button class="tombol-audio" onclick="putarAudio('sorry')">▶</button>
+            </div>
+            
+            <div class="kosakata-item">
+                <span><strong>Goodbye</strong> - Selamat tinggal</span>
+                <button class="tombol-audio" onclick="putarAudio('goodbye')">▶</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Modal Kuis -->
+    <div id="kuis-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="tutupModal('kuis-modal')">&times;</span>
+            <h2 id="judul-kuis">Kuis Kosakata</h2>
+            
+            <div id="soal-kuis-container">
+                <!-- Soal kuis akan dimuat di sini -->
+            </div>
+            
+            <div id="hasil-kuis" class="hasil-kuis" style="display:none;">
+                <!-- Hasil kuis akan ditampilkan di sini -->
+            </div>
+            
+            <button id="tombol-selesai" class="tombol-belajar" style="display:none;" onclick="tutupModal('kuis-modal')">Selesai</button>
+        </div>
+    </div>
+    
+    <script>
+        // Data kuis
+        const bankSoal = {
+            'kosakata': [
+                {
+                    soal: "Apa bahasa Inggris dari 'Halo'?",
+                    pilihan: ["Hi", "Goodbye", "Thanks", "Please"],
+                    jawaban: 0
+                },
+                {
+                    soal: "Apa arti dari 'Thank you'?",
+                    pilihan: ["Maaf", "Tolong", "Terima kasih", "Selamat pagi"],
+                    jawaban: 2
+                },
+                {
+                    soal: "Apa bahasa Inggris dari 'Selamat tinggal'?",
+                    pilihan: ["Good morning", "Good night", "Goodbye", "Hello"],
+                    jawaban: 2
+                }
+            ],
+            'tata-bahasa': [
+                {
+                    soal: "Kalimat mana yang menggunakan Present Simple?",
+                    pilihan: ["I am eating", "I eat", "I ate", "I will eat"],
+                    jawaban: 1
+                },
+                {
+                    soal: "Mana yang merupakan kalimat tanya yang benar?",
+                    pilihan: ["You are happy?", "Are you happy?", "Happy you are?", "You happy are?"],
+                    jawaban: 1
+                }
+            ]
+        };
+        
+        // Fungsi navigasi
+        function bukaBagian(bagian) {
+            document.getElementById('kosakata').style.display = 'none';
+            document.getElementById('tata-bahasa').style.display = 'none';
+            document.getElementById('percakapan').style.display = 'none';
+            document.getElementById('kuis').style.display = 'none';
+            
+            document.getElementById(bagian).style.display = 'block';
+        }
+        
+        // Fungsi modal
+        function bukaModal(modalId) {
+            document.getElementById(modalId).style.display = 'block';
+        }
+        
+        function tutupModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+        }
+        
+        // Fungsi audio (simulasi)
+        function putarAudio(kata) {
+            alert("Memutar pengucapan: " + kata);
+            // Di aplikasi nyata, ini akan memutar file audio
+        }
+        
+        // Fungsi kuis
+        let jawabanBenar = 0;
+        let soalSekarang = 0;
+        let kuisAktif = '';
+        
+        function mulaiKuis(jenis) {
+            kuisAktif = jenis;
+            jawabanBenar = 0;
+            soalSekarang = 0;
+            
+            document.getElementById('judul-kuis').textContent = 'Kuis ' + (jenis === 'kosakata' ? 'Kosakata' : 'Tata Bahasa');
+            document.getElementById('hasil-kuis').style.display = 'none';
+            document.getElementById('tombol-selesai').style.display = 'none';
+            
+            tampilkanSoal();
+            bukaModal('kuis-modal');
+        }
+        
+        function tampilkanSoal() {
+            const container = document.getElementById('soal-kuis-container');
+            const soal = bankSoal[kuisAktif][soalSekarang];
+            
+            container.innerHTML = `
+                <div class="soal-kuis">
+                    <h3>Soal ${soalSekarang + 1} dari ${bankSoal[kuisAktif].length}</h3>
+                    <p>${soal.soal}</p>
+                </div>
+                <div class="pilihan-jawaban">
+                    ${soal.pilihan.map((pilihan, index) => `
+                        <div class="jawaban" onclick="cekJawaban(${index})">
+                            ${pilihan}
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+        }
+        
+        function cekJawaban(pilihan) {
+            const soal = bankSoal[kuisAktif][soalSekarang];
+            const semuaJawaban = document.querySelectorAll('.jawaban');
+            
+            // Tampilkan jawaban yang benar dengan warna hijau
+            semuaJawaban[soal.jawaban].style.backgroundColor = '#2ecc71';
+            semuaJawaban[soal.jawaban].style.color = 'white';
+            
+            // Jika jawaban salah, tandai dengan warna merah
+            if (pilihan !== soal.jawaban) {
+                semuaJawaban[pilihan].style.backgroundColor = '#e74c3c';
+                semuaJawaban[pilihan].style.color = 'white';
+            } else {
+                jawabanBenar++;
+            }
+            
+            // Nonaktifkan semua tombol jawaban
+            semuaJawaban.forEach(jawaban => {
+                jawaban.style.pointerEvents = 'none';
+            });
+            
+            // Tampilkan tombol lanjut
+            const container = document.getElementById('soal-kuis-container');
+            const lanjutBtn = document.createElement('button');
+            lanjutBtn.className = 'tombol-belajar';
+            lanjutBtn.textContent = 'Lanjut';
+            lanjutBtn.onclick = lanjutSoal;
+            container.appendChild(lanjutBtn);
+        }
+        
+        function lanjutSoal() {
+            soalSekarang++;
+            
+            if (soalSekarang < bankSoal[kuisAktif].length) {
+                tampilkanSoal();
+            } else {
+                tampilkanHasil();
+            }
+        }
+        
+        function tampilkanHasil() {
+            const container = document.getElementById('soal-kuis-container');
+            const hasilDiv = document.getElementById('hasil-kuis');
+            
+            container.innerHTML = '';
+            hasilDiv.style.display = 'block';
+            document.getElementById('tombol-selesai').style.display = 'block';
+            
+            const persentase = Math.round((jawabanBenar / bankSoal[kuisAktif].length) * 100);
+            let pesan = '';
+            
+            if (persentase >= 80) {
+                pesan = `Luar biasa! Anda benar ${jawabanBenar} dari ${bankSoal[kuisAktif].length} soal (${persentase}%)`;
+            } else if (persentase >= 50) {
+                pesan = `Bagus! Anda benar ${jawabanBenar} dari ${bankSoal[kuisAktif].length} soal (${persentase}%)`;
+            } else {
+                pesan = `Anda benar ${jawabanBenar} dari ${bankSoal[kuisAktif].length} soal (${persentase}%). Silakan belajar lagi!`;
+            }
+            
+            hasilDiv.innerHTML = `
+                <h3>Hasil Kuis</h3>
+                <p>${pesan}</p>
+            `;
+        }
+        
+        // Tutup modal saat klik di luar konten
+        window.onclick = function(event) {
+            if (event.target.className === 'modal') {
+                const modals = document.getElementsByClassName('modal');
+                for (let i = 0; i < modals.length; i++) {
+                    modals[i].style.display = 'none';
+                }
+            }
+        }
+    </script>
+</body>
+</html>
