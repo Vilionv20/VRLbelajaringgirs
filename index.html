@@ -3,8 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>English Master</title>
+    <title>English Master | Complete Guide</title>
     <style>
+        :root {
+            --primary: #4285F4;
+            --secondary: #34A853;
+            --danger: #EA4335;
+            --warning: #FBBC05;
+            --dark: #2D3748;
+        }
         * {
             margin: 0;
             padding: 0;
@@ -13,192 +20,188 @@
         }
         body {
             background-color: #f5f7fa;
+            color: var(--dark);
+            line-height: 1.6;
             padding: 16px;
-            color: #333;
         }
         header {
-            background: linear-gradient(to right, #4285F4, #34A853);
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
             color: white;
-            padding: 20px;
-            border-radius: 10px;
+            padding: 1.5rem;
             text-align: center;
-            margin-bottom: 20px;
-        }
-        .progress-container, .card {
-            background: white;
-            padding: 16px;
             border-radius: 10px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
             margin-bottom: 20px;
-        }
-        .progress-bar {
-            height: 10px;
-            background: #e0e0e0;
-            border-radius: 5px;
-            margin: 8px 0;
-        }
-        .progress-fill {
-            height: 100%;
-            border-radius: 5px;
-            background: #34A853;
-            width: 0%;
-            transition: width 0.5s;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
         }
         .tab-buttons {
             display: flex;
-            gap: 10px;
+            overflow-x: auto;
+            gap: 8px;
             margin-bottom: 20px;
         }
         .tab-btn {
             flex: 1;
+            min-width: 100px;
             padding: 12px;
-            background: #f1f1f1;
             border: none;
             border-radius: 8px;
-            font-weight: bold;
+            background: #e2e8f0;
+            font-weight: 600;
             cursor: pointer;
+            transition: all 0.3s;
         }
         .tab-btn.active {
-            background: #4285F4;
+            background: var(--primary);
             color: white;
         }
-        .btn {
-            padding: 12px;
-            background: #4285F4;
-            color: white;
-            border: none;
-            border-radius: 8px;
-            margin-top: 10px;
-            font-weight: bold;
-            cursor: pointer;
-            width: 100%;
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
         }
         .lesson-content {
             display: none;
-            padding: 16px;
-            background: #f8f9fa;
+            padding: 1rem;
+            background: #f8fafc;
             border-radius: 8px;
-            margin-top: 16px;
-            border-left: 4px solid #4285F4;
+            margin-top: 1rem;
+            border-left: 4px solid var(--primary);
         }
-        .vocab-list {
-            margin-top: 10px;
+        .vocab-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 12px;
+            margin-top: 1rem;
         }
-        .vocab-item {
-            padding: 8px;
-            border-bottom: 1px solid #eee;
-            display: flex;
-            justify-content: space-between;
+        .vocab-card {
+            background: white;
+            padding: 12px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            text-align: center;
+        }
+        .grammar-section {
+            margin-bottom: 1.5rem;
+        }
+        .btn {
+            display: inline-block;
+            padding: 12px 24px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 1rem;
+            transition: all 0.2s;
+        }
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(66, 133, 244, 0.3);
         }
     </style>
 </head>
 <body>
     <header>
         <h1>English Master</h1>
-        <p>Platform Belajar Bahasa Inggris Komprehensif</p>
+        <p>Panduan Lengkap Bahasa Inggris dari A-Z</p>
     </header>
 
-    <div class="progress-container">
-        <h2>Progress Belajarmu</h2>
-        <div>
-            <p>Kosakata Harian <span id="vocab-percent">0%</span></p>
-            <div class="progress-bar">
-                <div class="progress-fill" id="vocab-progress"></div>
-            </div>
-        </div>
-        <div>
-            <p>Tata Bahasa <span id="grammar-percent">0%</span></p>
-            <div class="progress-bar">
-                <div class="progress-fill" id="grammar-progress"></div>
-            </div>
-        </div>
-    </div>
-
     <div class="tab-buttons">
-        <button class="tab-btn active" onclick="showTab('vocab')">Kosakata</button>
-        <button class="tab-btn" onclick="showTab('grammar')">Tata Bahasa</button>
+        <button class="tab-btn active" onclick="openTab('vocabulary')">Kosakata</button>
+        <button class="tab-btn" onclick="openTab('grammar')">Tata Bahasa</button>
+        <button class="tab-btn" onclick="openTab('conversation')">Percakapan</button>
+        <button class="tab-btn" onclick="openTab('resources')">Sumber Belajar</button>
     </div>
 
     <!-- TAB KOSAKATA -->
-    <div id="vocab-tab">
+    <div id="vocabulary-tab" class="tab-content">
         <div class="card">
-            <h2>Kosakata Harian</h2>
-            <p>150 kata paling sering digunakan sehari-hari</p>
-            <button class="btn" onclick="showLesson('daily-vocab')">Pelajari</button>
+            <h2>Kosakata Inti (500+ Kata)</h2>
+            <button class="btn" onclick="showLesson('core-vocabulary')">Buka Daftar</button>
             
-            <div id="daily-vocab" class="lesson-content">
-                <h3>Kosakata Dasar</h3>
-                <div class="vocab-list">
-                    <div class="vocab-item">
-                        <span><strong>Hello</strong> - Halo</span>
-                        <button style="background:#34A853;color:white;border:none;padding:4px 8px;border-radius:4px;" onclick="playAudio('hello')">▶</button>
+            <div id="core-vocabulary" class="lesson-content">
+                <div class="vocab-grid">
+                    <!-- Kategori 1: Penyapa -->
+                    <div class="vocab-card">
+                        <strong>Hello</strong>
+                        <p>Halo</p>
                     </div>
-                    <div class="vocab-item">
-                        <span><strong>Thank you</strong> - Terima kasih</span>
-                        <button style="background:#34A853;color:white;border:none;padding:4px 8px;border-radius:4px;" onclick="playAudio('thank-you')">▶</button>
+                    <div class="vocab-card">
+                        <strong>Goodbye</strong>
+                        <p>Selamat tinggal</p>
                     </div>
-                    <!-- Tambahkan lebih banyak kosakata -->
+                    <!-- Tambahkan lebih banyak -->
                 </div>
-                <button class="btn" onclick="completeLesson('vocab')">Selesai Belajar</button>
             </div>
         </div>
+        
+        <!-- Tambahkan lebih banyak kategori kosakata -->
     </div>
 
     <!-- TAB TATA BAHASA -->
-    <div id="grammar-tab" style="display:none;">
+    <div id="grammar-tab" class="tab-content" style="display:none;">
         <div class="card">
-            <h2>16 Tenses</h2>
-            <p>Pelajari semua bentuk waktu dalam bahasa Inggris</p>
+            <h2>16 Tenses Mastery</h2>
             <button class="btn" onclick="showLesson('tenses')">Pelajari</button>
             
             <div id="tenses" class="lesson-content">
-                <h3>Present Simple</h3>
-                <p><strong>Rumus:</strong> Subject + V1 (s/es)</p>
-                <p><strong>Contoh:</strong> She works at a hospital.</p>
+                <div class="grammar-section">
+                    <h3>1. Present Simple</h3>
+                    <p><strong>Rumus:</strong> Subject + V1 (s/es)</p>
+                    <p><strong>Contoh:</strong> She <u>works</u> at a hospital.</p>
+                    <p><strong>Penggunaan:</strong> Kebiasaan, fakta umum</p>
+                </div>
                 
-                <h3>Present Continuous</h3>
-                <p><strong>Rumus:</strong> Subject + am/is/are + V-ing</p>
-                <p><strong>Contoh:</strong> They are playing football.</p>
+                <div class="grammar-section">
+                    <h3>2. Present Continuous</h3>
+                    <p><strong>Rumus:</strong> Subject + am/is/are + V-ing</p>
+                    <p><strong>Contoh:</strong> They <u>are playing</u> football.</p>
+                    <p><strong>Penggunaan:</strong> Aktivitas sedang berlangsung</p>
+                </div>
                 
-                <button class="btn" onclick="completeLesson('grammar')">Selesai Belajar</button>
+                <!-- Lengkapi semua 16 tenses -->
+            </div>
+        </div>
+        
+        <!-- Tambahkan lebih banyak materi grammar -->
+    </div>
+
+    <!-- TAB PERCAKAPAN -->
+    <div id="conversation-tab" class="tab-content" style="display:none;">
+        <div class="card">
+            <h2>Percakapan Sehari-hari</h2>
+            <button class="btn" onclick="showLesson('daily-convo')">Buka Dialog</button>
+            
+            <div id="daily-convo" class="lesson-content">
+                <h3>Di Restoran</h3>
+                <p><strong>A:</strong> Can I get a menu, please?<br>
+                   <strong>B:</strong> Here you go. Are you ready to order?</p>
+                
+                <h3>Di Bandara</h3>
+                <p><strong>A:</strong> Where is the boarding gate for flight 707?<br>
+                   <strong>B:</strong> It's at gate C12, just follow the signs.</p>
             </div>
         </div>
     </div>
 
     <script>
-        // PROGRESS SYSTEM
-        let progress = {
-            vocab: 0,
-            grammar: 0
-        };
-
-        // Load progress from localStorage
-        if(localStorage.getItem('english-progress')) {
-            progress = JSON.parse(localStorage.getItem('english-progress'));
-            updateProgress();
-        }
-
-        function updateProgress() {
-            document.getElementById('vocab-progress').style.width = progress.vocab + '%';
-            document.getElementById('grammar-progress').style.width = progress.grammar + '%';
-            document.getElementById('vocab-percent').textContent = progress.vocab + '%';
-            document.getElementById('grammar-percent').textContent = progress.grammar + '%';
-            localStorage.setItem('english-progress', JSON.stringify(progress));
-        }
-
-        // TAB SYSTEM
-        function showTab(tabName) {
-            document.getElementById('vocab-tab').style.display = 'none';
-            document.getElementById('grammar-tab').style.display = 'none';
-            document.getElementById(tabName + '-tab').style.display = 'block';
+        // Sistem Tab
+        function openTab(tabName) {
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.style.display = 'none';
+            });
+            document.getElementById(`${tabName}-tab`).style.display = 'block';
             
             document.querySelectorAll('.tab-btn').forEach(btn => {
                 btn.classList.remove('active');
             });
-            document.querySelector(`.tab-btn[onclick="showTab('${tabName}')"]`).classList.add('active');
+            document.querySelector(`.tab-btn[onclick="openTab('${tabName}')"]`).classList.add('active');
         }
 
-        // LESSON SYSTEM
+        // Sistem Pembelajaran
         function showLesson(lessonId) {
             document.querySelectorAll('.lesson-content').forEach(lesson => {
                 lesson.style.display = 'none';
@@ -206,19 +209,12 @@
             document.getElementById(lessonId).style.display = 'block';
         }
 
-        function completeLesson(type) {
-            if(type === 'vocab') {
-                progress.vocab = Math.min(progress.vocab + 10, 100);
-            } else {
-                progress.grammar = Math.min(progress.grammar + 15, 100);
-            }
-            updateProgress();
-            showTab(type);
-        }
-
-        function playAudio(word) {
-            // Ini hanya simulasi, di aplikasi nyata bisa gunakan Audio API
-            alert("Memutar suara: " + word);
+        // Auto-scroll ke konten yang dibuka
+        function scrollToLesson(lessonId) {
+            showLesson(lessonId);
+            document.getElementById(lessonId).scrollIntoView({
+                behavior: 'smooth'
+            });
         }
     </script>
 </body>
