@@ -542,4 +542,41 @@ setTimeout(() => {
 loadQuestion();
 </script>
 
+  <script>
+// DATA KOSAKATA
+const vocabulary = [
+  { en: "Book", id: "Buku" },
+  { en: "Chair", id: "Kursi" },
+  { en: "Table", id: "Meja" },
+  // ... tambahkan data lainnya ...
+];
+
+// Pastikan element target ada
+document.addEventListener('DOMContentLoaded', function() {
+  const vocabList = document.getElementById("vocab-list");
+  
+  if (vocabList) {
+    vocabulary.forEach(word => {
+      const card = document.createElement("div");
+      card.className = "vocab-card";
+      card.innerHTML = `
+        <strong>${word.en}</strong> 
+        <button onclick="speak('${word.en}')">🔊</button>
+        <small>${word.id}</small>
+      `;
+      vocabList.appendChild(card);
+    });
+  } else {
+    console.error("Element #vocab-list tidak ditemukan!");
+  }
+});
+
+function speak(text) {
+  if ('speechSynthesis' in window) {
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.lang = 'en-US';
+    window.speechSynthesis.speak(utterance);
+  }
+}
+</script>
 </body> </html> ```
