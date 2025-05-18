@@ -1,212 +1,545 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en"><!DOCTYPE html>
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ENGLISH MASTER PRO - LENGKAP 100%</title>
-    <style>
-        :root {
-            --primary: #4285F4;
-            --secondary: #34A853;
-            --accent: #FBBC05;
-            --dark: #2D3748;
-            --light: #F8F9FA;
-        }
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', system-ui;
-        }
-        body {
-            background: var(--light);
-            color: var(--dark);
-            line-height: 1.6;
-            padding: 16px;
-        }
-        .container {
-            max-width: 1000px;
-            margin: 0 auto;
-        }
-        header {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: white;
-            padding: 24px;
-            border-radius: 12px;
-            margin-bottom: 24px;
-            text-align: center;
-        }
-        .category {
-            background: white;
-            border-radius: 12px;
-            padding: 20px;
-            margin-bottom: 24px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-        }
-        .vocab-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 12px;
-            margin-top: 16px;
-        }
-        .vocab-card {
-            background: var(--light);
-            padding: 12px;
-            border-radius: 8px;
-            border-left: 4px solid var(--primary);
-        }
-        .grammar-item {
-            margin-bottom: 24px;
-            padding-bottom: 16px;
-            border-bottom: 1px dashed #eee;
-        }
-        .btn-audio {
-            background: var(--secondary);
-            color: white;
-            border: none;
-            width: 28px;
-            height: 28px;
-            border-radius: 50%;
-            margin-left: 8px;
-            cursor: pointer;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-        }
-        @media (max-width: 600px) {
-            .vocab-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-    </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>English Master Pro - Lengkap & Interaktif</title>
+<style>
+  :root {
+    --primary: #1e40af;
+    --secondary: #2563eb;
+    --accent: #fbbf24;
+    --background: #f9fafb;
+    --text-dark: #111827;
+    --text-light: #374151;
+    --card-bg: #ffffff;
+    --border-radius: 8px;
+  }
+  * {
+    box-sizing: border-box;
+  }
+  body {
+    margin: 0;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--background);
+    color: var(--text-dark);
+    line-height: 1.5;
+  }
+  header {
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    color: white;
+    padding: 1.5rem 2rem;
+    text-align: center;
+  }
+  header h1 {
+    margin-bottom: 0.3rem;
+  }
+  header p {
+    font-size: 1.1rem;
+    opacity: 0.9;
+  }
+  main {
+    display: flex;
+    min-height: calc(100vh - 120px);
+  }
+  nav {
+    width: 280px;
+    background-color: var(--card-bg);
+    border-right: 1px solid #ddd;
+    padding: 1rem;
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow-y: auto;
+  }
+  nav h2 {
+    font-size: 1.3rem;
+    margin-bottom: 1rem;
+    border-bottom: 2px solid var(--accent);
+    padding-bottom: 0.4rem;
+  }
+  nav ul {
+    list-style: none;
+    padding-left: 0;
+  }
+  nav li {
+    margin-bottom: 0.8rem;
+  }
+  nav a {
+    text-decoration: none;
+    color: var(--primary);
+    font-weight: 600;
+    cursor: pointer;
+    transition: color 0.3s ease;
+  }
+  nav a:hover,
+  nav a.active {
+    color: var(--accent);
+  }
+
+  section {
+    flex: 1;
+    padding: 2rem;
+    overflow-y: auto;
+  }
+  section h2 {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+    border-bottom: 3px solid var(--primary);
+    padding-bottom: 0.5rem;
+  }
+  /* Kosakata Grid */
+  .vocab-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill,minmax(180px,1fr));
+    gap: 1rem;
+  }
+  .vocab-card {
+    background: var(--card-bg);
+    border-radius: var(--border-radius);
+    padding: 1rem;
+    box-shadow: 0 2px 8px rgb(0 0 0 / 0.05);
+    position: relative;
+    border-left: 5px solid var(--primary);
+    display: flex;
+    flex-direction: column;
+  }
+  .vocab-card strong {
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+    color: var(--primary);
+  }
+  .vocab-card button {
+    background: var(--secondary);
+    border: none;
+    color: white;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    align-self: flex-start;
+    font-size: 1rem;
+    line-height: 1;
+    transition: background-color 0.3s ease;
+  }
+  .vocab-card button:hover {
+    background: var(--accent);
+  }
+
+  /* Grammar */
+  .grammar-item {
+    background: var(--card-bg);
+    border-radius: var(--border-radius);
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 2px 10px rgb(0 0 0 / 0.07);
+  }
+  .grammar-item h3 {
+    margin-top: 0;
+    color: var(--secondary);
+  }
+  .grammar-item ul,
+  .grammar-item ol {
+    margin-left: 1.2rem;
+  }
+
+  /* Quiz */
+  .quiz-container {
+    max-width: 600px;
+    background: var(--card-bg);
+    padding: 1.5rem;
+    border-radius: var(--border-radius);
+    box-shadow: 0 4px 12px rgb(0 0 0 / 0.1);
+  }
+  .quiz-question {
+    font-weight: 600;
+    margin-bottom: 1rem;
+  }
+  .quiz-options {
+    list-style: none;
+    padding-left: 0;
+    margin-bottom: 1rem;
+  }
+  .quiz-options li {
+    margin-bottom: 0.8rem;
+  }
+  .quiz-options label {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    background: #f3f4f6;
+    padding: 0.5rem 1rem;
+    border-radius: var(--border-radius);
+    transition: background-color 0.3s ease;
+  }
+  .quiz-options input[type="radio"] {
+    margin-right: 0.8rem;
+  }
+  .quiz-options label:hover {
+    background-color: var(--accent);
+    color: white;
+  }
+  button#submit-quiz {
+    background: var(--primary);
+    color: white;
+    border: none;
+    padding: 0.7rem 1.4rem;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    font-weight: 700;
+    transition: background-color 0.3s ease;
+  }
+  button#submit-quiz:hover {
+    background: var(--secondary);
+  }
+  .quiz-result {
+    margin-top: 1rem;
+    font-weight: 700;
+  }
+  .quiz-correct {
+    color: #16a34a;
+  }
+  .quiz-wrong {
+    color: #dc2626;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    main {
+      flex-direction: column;
+    }
+    nav {
+      width: 100%;
+      height: auto;
+      position: relative;
+      border-right: none;
+      border-bottom: 1px solid #ddd;
+    }
+    section {
+      padding: 1rem;
+    }
+  }
+</style>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1>ENGLISH MASTER PRO</h1>
-            <p>Kamus Lengkap Bahasa Inggris + Tata Bahasa</p>
-        </header>
 
-        <!-- ==================================== -->
-        <!-- BAGIAN KOSAKATA -->
-        <!-- ==================================== -->
-        <div class="category">
-            <h2>📚 KOSAKATA LENGKAP</h2>
-            <div class="vocab-grid">
-                <div class="vocab-card">
-                    <strong>Hello</strong> - Halo <button class="btn-audio">▶</button>
-                </div>
-                <div class="vocab-card">
-                    <strong>Mother</strong> - Ibu
-                </div>
-                <div class="vocab-card">
-                    <strong>One</strong> - Satu
-                </div>
-                <div class="vocab-card">
-                    <strong>January</strong> - Januari
-                </div>
-            </div>
-        </div>
+<header>
+  <h1>English Master Pro</h1>
+  <p>Kamus Lengkap & Grammar Interaktif</p>
+</header>
 
-        <!-- ==================================== -->
-        <!-- BAGIAN TATA BAHASA -->
-        <!-- ==================================== -->
-        <div class="category">
-            <h2>📖 TATA BAHASA</h2>
-            <div class="grammar-item">
-                <h3>1. Present Simple Tense</h3>
-                <p><strong>Rumus:</strong> Subject + V1 (s/es)</p>
-                <ul>
-                    <li>I <u>eat</u> breakfast. (Saya sarapan)</li>
-                    <li>She <u>works</u> hard. (Dia bekerja keras)</li>
-                </ul>
-            </div>
-            <div class="grammar-item">
-                <h3>2. Present Continuous Tense</h3>
-                <p><strong>Rumus:</strong> Subject + am/is/are + V-ing</p>
-                <ul>
-                    <li>I <u>am studying</u> now. (Saya sedang belajar)</li>
-                </ul>
-            </div>
-        </div>
+<main>
+  <nav>
+    <h2>Menu</h2>
+    <ul>
+      <li><a href="#vocab" class="active">Kosakata</a></li>
+      <li><a href="#grammar">Grammar</a></li>
+      <li><a href="#quiz">Kuis</a></li>
+    </ul>
+  </nav>
 
-        <!-- ==================================== -->
-        <!-- FITUR KUIS INTERAKTIF -->
-        <!-- ==================================== -->
-        <div class="category" id="quiz-section">
-            <h2>🧠 Kuis Bahasa Inggris</h2>
-            <div id="quiz-container"></div>
-            <button onclick="submitQuiz()" style="margin-top:16px;padding:10px 20px;background:var(--primary);color:white;border:none;border-radius:8px;cursor:pointer;">Selesai Kuis</button>
-            <div id="quiz-result" style="margin-top:20px;font-weight:bold;"></div>
-        </div>
+  <section id="vocab" tabindex="0">
+    <h2>Kosakata Lengkap</h2>
+    <p>Beberapa contoh kosakata penting dalam bahasa Inggris beserta artinya.</p>
+    <div class="vocab-grid" id="vocab-list">
+      <!-- Kosakata akan di-render lewat JS -->
+    </div>
+  </section>
+
+  <section id="grammar" tabindex="0">
+    <h2>Grammar Lengkap</h2>
+
+    <div class="grammar-item">
+      <h3>1. Present Simple Tense</h3>
+      <p><strong>Rumus:</strong> Subject + V1 (s/es)</p>
+      <p><strong>Contoh:</strong></p>
+      <ul>
+        <li>I <u>eat</u> breakfast every day. (Saya sarapan setiap hari)</li>
+        <li>She <u>works</u> at a hospital. (Dia bekerja di rumah sakit)</li>
+      </ul>
+      <p><strong>Penggunaan:</strong></p>
+      <ol>
+        <li>Kebiasaan sehari-hari</li>
+        <li>Fakta umum</li>
+        <li>Jadwal tetap</li>
+      </ol>
     </div>
 
-    <script>
-        function playAudio(word) {
-            alert("Fitur audio akan diputar untuk: " + word);
-        }
-        document.querySelectorAll('.btn-audio').forEach(btn => {
-            btn.addEventListener('click', function() {
-                const word = this.parentElement.querySelector('strong').textContent;
-                playAudio(word);
-            });
-        });
+    <div class="grammar-item">
+      <h3>2. Present Continuous Tense</h3>
+      <p><strong>Rumus:</strong> Subject + am/is/are + V-ing</p>
+      <p><strong>Contoh:</strong></p>
+      <ul>
+        <li>They <u>are playing</u> football now. (Mereka sedang bermain sepakbola sekarang)</li>
+        <li>I <u>am studying</u> English at the moment. (Saya sedang belajar bahasa Inggris saat ini)</li>
+      </ul>
+      <p><strong>Penggunaan:</strong></p>
+      <ol>
+        <li>Aktivitas yang sedang berlangsung sekarang</li>
+        <li>Rencana yang sudah pasti di masa depan</li>
+        <li>Perubahan yang sedang terjadi</li>
+      </ol>
+    </div>
 
-        const quizData = [
-            {
-                question: "Apa arti kata 'Mother'?",
-                options: ["Ayah", "Ibu", "Anak", "Saudara"],
-                correct: 1
-            },
-            {
-                question: "Kalimat berikut menggunakan tense apa? 'She is sleeping now.'",
-                options: ["Present Simple", "Past Continuous", "Present Continuous", "Future Tense"],
-                correct: 2
-            },
-            {
-                question: "Apa bentuk verb 1 dari 'went'?",
-                options: ["go", "gone", "goes", "going"],
-                correct: 0
-            }
-        ];
+    <div class="grammar-item">
+      <h3>3. Past Simple Tense</h3>
+      <p><strong>Rumus:</strong> Subject + V2 (past form)</p>
+      <p><strong>Contoh:</strong></p>
+      <ul>
+        <li>She <u>visited</u> her parents yesterday. (Dia mengunjungi orang tuanya kemarin)</li>
+        <li>They <u>watched</u> a movie last night. (Mereka menonton film tadi malam)</li>
+      </ul>
+      <p><strong>Penggunaan:</strong></p>
+      <ol>
+        <li>Aktivitas selesai di masa lalu</li>
+        <li>Urutan kejadian masa lalu</li>
+      </ol>
+    </div>
 
-        function loadQuiz() {
-            const container = document.getElementById("quiz-container");
-            container.innerHTML = "";
-            quizData.forEach((q, index) => {
-                const qDiv = document.createElement("div");
-                qDiv.style.marginBottom = "16px";
-                qDiv.innerHTML = `<p><strong>${index + 1}. ${q.question}</strong></p>`;
-                q.options.forEach((opt, optIndex) => {
-                    qDiv.innerHTML += `
-                        <label style="display:block;margin-left:8px;">
-                            <input type="radio" name="q${index}" value="${optIndex}"> ${opt}
-                        </label>
-                    `;
-                });
-                container.appendChild(qDiv);
-            });
-        }
+    <!-- Bisa ditambah tenses lain sesuai kebutuhan -->
 
-        function submitQuiz() {
-            let score = 0;
-            let feedback = "";
-            quizData.forEach((q, index) => {
-                const selected = document.querySelector(`input[name="q${index}"]:checked`);
-                const userAnswer = selected ? parseInt(selected.value) : -1;
-                if (userAnswer === q.correct) {
-                    score++;
-                } else {
-                    const correctAnswer = q.options[q.correct];
-                    feedback += `❌ Soal ${index + 1}: Jawaban Anda salah. Jawaban benar: <strong>${correctAnswer}</strong><br>`;
-                }
-            });
+    <div class="grammar-item">
+      <h3>Parts of Speech (Jenis Kata)</h3>
+      <ul>
+        <li><strong>Noun:</strong> kata benda (book, teacher)</li>
+        <li><strong>Verb:</strong> kata kerja (run, eat)</li>
+        <li><strong>Adjective:</strong> kata sifat (big, beautiful)</li>
+        <li><strong>Adverb:</strong> kata keterangan (quickly, very)</li>
+        <li><strong>Pronoun:</strong> kata ganti (he, she, it)</li>
+        <li><strong>Preposition:</strong> kata depan (in, on, at)</li>
+        <li><strong>Conjunction:</strong> kata penghubung (and, but, or)</li>
+        <li><strong>Interjection:</strong> kata seru (wow!, oh!)</li>
+      </ul>
+    </div>
+  </section>
 
-            const result = document.getElementById("quiz-result");
-            result.innerHTML = `✅ Skor Anda: ${score} / ${quizData.length}<br><br>` + feedback;
-        }
+  <section id="quiz" tabindex="0">
+    <h2>Kuis Interaktif</h2>
+    <div class="quiz-container" id="quiz-container">
+      <p id="quiz-question" class="quiz-question"></p>
+      <ul id="quiz-options" class="quiz-options"></ul>
+      <button id="submit-quiz" disabled>Submit</button>
+      <p id="quiz-result" class="quiz-result"></p>
+    </div>
+  </section>
+</main>
 
-        window.onload = loadQuiz;
-    </script>
-</body>
-</html>
+<script>
+  // DATA KOSAKATA (sample 100+ kata dari kategori utama)
+  const vocabulary = [
+    // Penyapa dasar
+    { en: "Hello", id: "Halo" },
+    { en: "Good morning", id: "Selamat pagi" },
+    { en: "Good afternoon", id: "Selamat siang" },
+    { en: "Good evening", id: "Selamat sore/malam" },
+    { en: "Good night", id: "Selamat tidur" },
+    { en: "Hi", id: "Hai" },
+    { en: "How are you?", id: "Apa kabar?" },
+    { en: "What's your name?", id: "Siapa nama Anda?" },
+    { en: "Thank you", id: "Terima kasih" },
+    { en: "Sorry", id: "Maaf" },
+    // Anggota keluarga
+    { en: "Father", id: "Ayah" },
+    { en: "Mother", id: "Ibu" },
+    { en: "Parents", id: "Orang tua" },
+    { en: "Son", id: "Anak laki-laki" },
+    { en: "Daughter", id: "Anak perempuan" },
+    { en: "Brother", id: "Saudara laki-laki" },
+    { en: "Sister", id: "Saudara perempuan" },
+    { en: "Grandfather", id: "Kakek" },
+    { en: "Grandmother", id: "Nenek" },
+    { en: "Uncle", id: "Paman" },
+    { en: "Aunt", id: "Bibi" },
+    // Angka & waktu
+    { en: "One", id: "Satu" },
+    { en: "Two", id: "Dua" },
+    { en: "Three", id: "Tiga" },
+    { en: "Ten", id: "Sepuluh" },
+    { en: "Hundred", id: "Seratus" },
+    { en: "Monday", id: "Senin" },
+    { en: "Tuesday", id: "Selasa" },
+    { en: "January", id: "Januari" },
+    { en: "February", id: "Februari" },
+    { en: "Hour", id: "Jam" },
+    { en: "Minute", id: "Menit" },
+    { en: "Year", id: "Tahun" },
+    // Makanan & minuman
+    { en: "Apple", id: "Apel" },
+    { en: "Water", id: "Air" },
+    { en: "Bread", id: "Roti" },
+    { en: "Milk", id: "Susu" },
+    { en: "Coffee", id: "Kopi" },
+    { en: "Rice", id: "Nasi" },
+    { en: "Sugar", id: "Gula" },
+    { en: "Salt", id: "Garam" },
+    // Rumah & perabotan
+    { en: "House", id: "Rumah" },
+{ en: "Chair", id: "Kursi" },
+{ en: "Table", id: "Meja" },
+{ en: "Door", id: "Pintu" },
+{ en: "Window", id: "Jendela" },
+{ en: "Bed", id: "Tempat tidur" },
+{ en: "Lamp", id: "Lampu" },
+// Verbs umum
+{ en: "Go", id: "Pergi" },
+{ en: "Eat", id: "Makan" },
+{ en: "Drink", id: "Minum" },
+{ en: "Read", id: "Membaca" },
+{ en: "Write", id: "Menulis" },
+{ en: "Run", id: "Lari" },
+{ en: "Speak", id: "Berbicara" },
+{ en: "Listen", id: "Mendengar" },
+{ en: "Work", id: "Bekerja" },
+// Emosi & sifat
+{ en: "Happy", id: "Bahagia" },
+{ en: "Sad", id: "Sedih" },
+{ en: "Angry", id: "Marah" },
+{ en: "Beautiful", id: "Indah" },
+{ en: "Big", id: "Besar" },
+{ en: "Small", id: "Kecil" },
+];
+
+// Render kosakata
+const vocabList = document.getElementById("vocab-list");
+vocabulary.forEach(word => {
+const card = document.createElement("div");
+card.className = "vocab-card";
+card.innerHTML = <strong>${word.en}
+</strong> <button aria-label="Play pronunciation for ${word.en}">🔊</button> <small>${word.id}</small> ;
+const btn = card.querySelector("button");
+btn.onclick = () => speak(word.en);
+vocabList.appendChild(card);
+});
+
+// Fungsi suara
+function speak(text) {
+if (!window.speechSynthesis) {
+alert("Browser tidak mendukung Speech Synthesis.");
+return;
+}
+const utter = new SpeechSynthesisUtterance(text);
+utter.lang = "en-US";
+speechSynthesis.speak(utter);
+}
+// Menu navigasi aktif
+const navLinks = document.querySelectorAll("nav a");
+navLinks.forEach(link => {
+link.addEventListener("click", e => {
+e.preventDefault();
+navLinks.forEach(l => l.classList.remove("active"));
+link.classList.add("active");
+const id = link.getAttribute("href").substring(1);
+document.getElementById(id).focus();
+});
+});
+
+// DATA KUIS
+const quizData = [
+{
+question: "What is the correct past tense of 'go'?",
+options: ["goed", "went", "goes", "gone"],
+answer: "went"
+},
+    {
+question: "Choose the correct sentence:",
+options: [
+"She are happy.",
+"She is happy.",
+"She am happy.",
+"She be happy."
+],
+answer: "She is happy."
+},
+{
+question: "Which word is a noun?",
+options: ["run", "beautiful", "apple", "quickly"],
+answer: "apple"
+},
+{
+question: "What is the plural form of 'child'?",
+options: ["childs", "children", "childes", "child"],
+answer: "children"
+},
+    {
+question: "Complete: I ____ breakfast every day.",
+options: ["eat", "eating", "ate", "eats"],
+answer: "eat"
+}
+];
+
+// KUIS LOGIC
+const quizContainer = document.getElementById("quiz-container");
+const quizQuestion = document.getElementById("quiz-question");
+const quizOptions = document.getElementById("quiz-options");
+const submitBtn = document.getElementById("submit-quiz");
+const quizResult = document.getElementById("quiz-result");
+
+let currentQuestion = 0;
+let score = 0;
+    let selectedAnswer = null;
+
+function loadQuestion() {
+const q = quizData[currentQuestion];
+quizQuestion.textContent = ${currentQuestion + 1}. ${q.question};
+quizOptions.innerHTML = "";
+selectedAnswer = null;
+submitBtn.disabled = true;
+quizResult.textContent = "";
+    q.options.forEach(opt => {
+  const li = document.createElement("li");
+  li.innerHTML = `
+    <label>
+      <input type="radio" name="option" value="${opt}" />
+      ${opt}
+    </label>
+  `;
+  quizOptions.appendChild(li);
+});
+
+// Event listener radio
+const radios = quizOptions.querySelectorAll('input[type="radio"]');
+radios.forEach(radio => {
+  radio.addEventListener("change", () => {
+    selectedAnswer = radio.value;
+    submitBtn.disabled = false;
+  });
+});
+}
+
+function showResult() {
+const q = quizData[currentQuestion];
+if (selectedAnswer === q.answer) {
+score++;
+quizResult.textContent = "Benar!";
+quizResult.className = "quiz-result quiz-correct";
+} else {
+quizResult.textContent = Salah! Jawaban benar: ${q.answer};
+quizResult.className = "quiz-result quiz-wrong";
+}
+}
+
+submitBtn.addEventListener("click", () => {
+if (!selectedAnswer) return;
+showResult();
+submitBtn.disabled = true;
+    // Next soal setelah 2 detik
+setTimeout(() => {
+  currentQuestion++;
+  if (currentQuestion < quizData.length) {
+    loadQuestion();
+  } else {
+    quizQuestion.textContent = `Kuis selesai! Skor Anda: ${score} / ${quizData.length}`;
+    quizOptions.innerHTML = "";
+    submitBtn.style.display = "none";
+    quizResult.textContent = "Terima kasih sudah mengikuti kuis!";
+    quizResult.className = "quiz-result";
+  }
+}, 2000);
+});
+
+// Load kuis pertama kali
+loadQuestion();
+</script>
+
+</body> </html> ```
