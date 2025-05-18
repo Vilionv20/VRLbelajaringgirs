@@ -5,16 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>English Master</title>
     <style>
-        /* CSS Reset */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: Arial, sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
         body {
             background-color: #f5f7fa;
             padding: 16px;
+            color: #333;
         }
         header {
             background: linear-gradient(to right, #4285F4, #34A853);
@@ -24,28 +24,25 @@
             text-align: center;
             margin-bottom: 20px;
         }
-        .progress-container {
+        .progress-container, .card {
             background: white;
             padding: 16px;
             border-radius: 10px;
             box-shadow: 0 2px 5px rgba(0,0,0,0.1);
             margin-bottom: 20px;
         }
-        .progress-item {
-            margin-bottom: 15px;
-        }
         .progress-bar {
             height: 10px;
             background: #e0e0e0;
             border-radius: 5px;
-            margin-top: 5px;
+            margin: 8px 0;
         }
         .progress-fill {
             height: 100%;
             border-radius: 5px;
             background: #34A853;
             width: 0%;
-            transition: width 1s;
+            transition: width 0.5s;
         }
         .tab-buttons {
             display: flex;
@@ -65,16 +62,7 @@
             background: #4285F4;
             color: white;
         }
-        .card {
-            background: white;
-            padding: 16px;
-            border-radius: 10px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            margin-bottom: 16px;
-        }
         .btn {
-            display: block;
-            width: 100%;
             padding: 12px;
             background: #4285F4;
             color: white;
@@ -83,6 +71,24 @@
             margin-top: 10px;
             font-weight: bold;
             cursor: pointer;
+            width: 100%;
+        }
+        .lesson-content {
+            display: none;
+            padding: 16px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            margin-top: 16px;
+            border-left: 4px solid #4285F4;
+        }
+        .vocab-list {
+            margin-top: 10px;
+        }
+        .vocab-item {
+            padding: 8px;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
         }
     </style>
 </head>
@@ -94,120 +100,126 @@
 
     <div class="progress-container">
         <h2>Progress Belajarmu</h2>
-        <div class="progress-item">
+        <div>
             <p>Kosakata Harian <span id="vocab-percent">0%</span></p>
             <div class="progress-bar">
                 <div class="progress-fill" id="vocab-progress"></div>
             </div>
         </div>
-        <div class="progress-item">
+        <div>
             <p>Tata Bahasa <span id="grammar-percent">0%</span></p>
             <div class="progress-bar">
                 <div class="progress-fill" id="grammar-progress"></div>
             </div>
         </div>
-        <div class="progress-item">
-            <p>Kuis Diselesaikan <span id="quiz-percent">0%</span></p>
-            <div class="progress-bar">
-                <div class="progress-fill" id="quiz-progress"></div>
+    </div>
+
+    <div class="tab-buttons">
+        <button class="tab-btn active" onclick="showTab('vocab')">Kosakata</button>
+        <button class="tab-btn" onclick="showTab('grammar')">Tata Bahasa</button>
+    </div>
+
+    <!-- TAB KOSAKATA -->
+    <div id="vocab-tab">
+        <div class="card">
+            <h2>Kosakata Harian</h2>
+            <p>150 kata paling sering digunakan sehari-hari</p>
+            <button class="btn" onclick="showLesson('daily-vocab')">Pelajari</button>
+            
+            <div id="daily-vocab" class="lesson-content">
+                <h3>Kosakata Dasar</h3>
+                <div class="vocab-list">
+                    <div class="vocab-item">
+                        <span><strong>Hello</strong> - Halo</span>
+                        <button style="background:#34A853;color:white;border:none;padding:4px 8px;border-radius:4px;" onclick="playAudio('hello')">▶</button>
+                    </div>
+                    <div class="vocab-item">
+                        <span><strong>Thank you</strong> - Terima kasih</span>
+                        <button style="background:#34A853;color:white;border:none;padding:4px 8px;border-radius:4px;" onclick="playAudio('thank-you')">▶</button>
+                    </div>
+                    <!-- Tambahkan lebih banyak kosakata -->
+                </div>
+                <button class="btn" onclick="completeLesson('vocab')">Selesai Belajar</button>
             </div>
         </div>
     </div>
 
-    <div class="tab-buttons">
-        <button class="tab-btn active" onclick="openTab('vocab')">Kosakata</button>
-        <button class="tab-btn" onclick="openTab('grammar')">Tata Bahasa</button>
-        <button class="tab-btn" onclick="openTab('quiz')">Kuis</button>
-    </div>
-
-    <div id="vocab-tab">
-        <div class="card">
-            <h2>Kosakata Harian</h2>
-            <p>150 kata paling sering digunakan dalam percakapan sehari-hari</p>
-            <button class="btn" onclick="learnVocab()">Pelajari</button>
-        </div>
-    </div>
-
+    <!-- TAB TATA BAHASA -->
     <div id="grammar-tab" style="display:none;">
         <div class="card">
-            <h2>16 Tenses Bahasa Inggris</h2>
+            <h2>16 Tenses</h2>
             <p>Pelajari semua bentuk waktu dalam bahasa Inggris</p>
-            <button class="btn" onclick="learnGrammar()">Pelajari</button>
-        </div>
-    </div>
-
-    <div id="quiz-tab" style="display:none;">
-        <div class="card">
-            <h2>Kuis Pemula</h2>
-            <p>10 soal dasar untuk menguji pengetahuanmu</p>
-            <button class="btn" onclick="startQuiz()">Mulai Kuis</button>
+            <button class="btn" onclick="showLesson('tenses')">Pelajari</button>
+            
+            <div id="tenses" class="lesson-content">
+                <h3>Present Simple</h3>
+                <p><strong>Rumus:</strong> Subject + V1 (s/es)</p>
+                <p><strong>Contoh:</strong> She works at a hospital.</p>
+                
+                <h3>Present Continuous</h3>
+                <p><strong>Rumus:</strong> Subject + am/is/are + V-ing</p>
+                <p><strong>Contoh:</strong> They are playing football.</p>
+                
+                <button class="btn" onclick="completeLesson('grammar')">Selesai Belajar</button>
+            </div>
         </div>
     </div>
 
     <script>
-        // Simpan progress di localStorage
-        if(!localStorage.getItem('progress')) {
-            localStorage.setItem('progress', JSON.stringify({
-                vocab: 0,
-                grammar: 0,
-                quiz: 0
-            }));
+        // PROGRESS SYSTEM
+        let progress = {
+            vocab: 0,
+            grammar: 0
+        };
+
+        // Load progress from localStorage
+        if(localStorage.getItem('english-progress')) {
+            progress = JSON.parse(localStorage.getItem('english-progress'));
+            updateProgress();
         }
 
-        // Update progress bar
         function updateProgress() {
-            const progress = JSON.parse(localStorage.getItem('progress'));
-            
-            document.getElementById('vocab-progress').style.width = `${progress.vocab}%`;
-            document.getElementById('grammar-progress').style.width = `${progress.grammar}%`;
-            document.getElementById('quiz-progress').style.width = `${progress.quiz}%`;
-            
-            document.getElementById('vocab-percent').textContent = `${progress.vocab}%`;
-            document.getElementById('grammar-percent').textContent = `${progress.grammar}%`;
-            document.getElementById('quiz-percent').textContent = `${progress.quiz}%`;
+            document.getElementById('vocab-progress').style.width = progress.vocab + '%';
+            document.getElementById('grammar-progress').style.width = progress.grammar + '%';
+            document.getElementById('vocab-percent').textContent = progress.vocab + '%';
+            document.getElementById('grammar-percent').textContent = progress.grammar + '%';
+            localStorage.setItem('english-progress', JSON.stringify(progress));
         }
 
-        // Fungsi tab
-        function openTab(tabName) {
+        // TAB SYSTEM
+        function showTab(tabName) {
+            document.getElementById('vocab-tab').style.display = 'none';
+            document.getElementById('grammar-tab').style.display = 'none';
+            document.getElementById(tabName + '-tab').style.display = 'block';
+            
             document.querySelectorAll('.tab-btn').forEach(btn => {
                 btn.classList.remove('active');
             });
-            document.querySelector(`.tab-btn[onclick="openTab('${tabName}')"]`).classList.add('active');
-            
-            document.getElementById('vocab-tab').style.display = 'none';
-            document.getElementById('grammar-tab').style.display = 'none';
-            document.getElementById('quiz-tab').style.display = 'none';
-            
-            document.getElementById(`${tabName}-tab`).style.display = 'block';
+            document.querySelector(`.tab-btn[onclick="showTab('${tabName}')"]`).classList.add('active');
         }
 
-        // Fungsi simulasi belajar
-        function learnVocab() {
-            const progress = JSON.parse(localStorage.getItem('progress'));
-            progress.vocab = Math.min(progress.vocab + 10, 100);
-            localStorage.setItem('progress', JSON.stringify(progress));
+        // LESSON SYSTEM
+        function showLesson(lessonId) {
+            document.querySelectorAll('.lesson-content').forEach(lesson => {
+                lesson.style.display = 'none';
+            });
+            document.getElementById(lessonId).style.display = 'block';
+        }
+
+        function completeLesson(type) {
+            if(type === 'vocab') {
+                progress.vocab = Math.min(progress.vocab + 10, 100);
+            } else {
+                progress.grammar = Math.min(progress.grammar + 15, 100);
+            }
             updateProgress();
-            alert("Anda mempelajari 15 kosakata baru!");
+            showTab(type);
         }
 
-        function learnGrammar() {
-            const progress = JSON.parse(localStorage.getItem('progress'));
-            progress.grammar = Math.min(progress.grammar + 15, 100);
-            localStorage.setItem('progress', JSON.stringify(progress));
-            updateProgress();
-            alert("Anda mempelajari 3 tenses baru!");
+        function playAudio(word) {
+            // Ini hanya simulasi, di aplikasi nyata bisa gunakan Audio API
+            alert("Memutar suara: " + word);
         }
-
-        function startQuiz() {
-            const progress = JSON.parse(localStorage.getItem('progress'));
-            progress.quiz = Math.min(progress.quiz + 20, 100);
-            localStorage.setItem('progress', JSON.stringify(progress));
-            updateProgress();
-            alert("Kuis dimulai! Jawab 10 soal berikut.");
-        }
-
-        // Init progress saat pertama load
-        updateProgress();
     </script>
 </body>
 </html>
