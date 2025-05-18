@@ -3,219 +3,349 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>English Master | Complete Guide</title>
+    <meta name="description" content="Platform belajar bahasa Inggris komprehensif dengan fitur interaktif">
+    <title>English Master Pro - Ultimate Learning Platform</title>
+    <!-- Material Icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <style>
         :root {
             --primary: #4285F4;
             --secondary: #34A853;
-            --danger: #EA4335;
-            --warning: #FBBC05;
+            --accent: #FBBC05;
             --dark: #2D3748;
+            --light: #F8F9FA;
         }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Segoe UI', system-ui;
         }
+
         body {
-            background-color: #f5f7fa;
+            background: var(--light);
             color: var(--dark);
             line-height: 1.6;
-            padding: 16px;
         }
-        header {
+
+        /* Header Styles */
+        .app-bar {
             background: linear-gradient(135deg, var(--primary), var(--secondary));
             color: white;
-            padding: 1.5rem;
-            text-align: center;
-            border-radius: 10px;
-            margin-bottom: 20px;
+            padding: 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
             box-shadow: 0 4px 6px rgba(0,0,0,0.1);
         }
-        .tab-buttons {
+
+        .nav-container {
             display: flex;
-            overflow-x: auto;
-            gap: 8px;
-            margin-bottom: 20px;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
         }
-        .tab-btn {
-            flex: 1;
-            min-width: 100px;
-            padding: 12px;
-            border: none;
-            border-radius: 8px;
-            background: #e2e8f0;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
+
+        .nav-brand {
+            font-size: 1.5rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
         }
-        .tab-btn.active {
-            background: var(--primary);
-            color: white;
+
+        /* Main Content Grid */
+        .main-grid {
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
         }
-        .card {
+
+        /* Side Navigation */
+        .side-nav {
+            position: sticky;
+            top: 5rem;
+            height: calc(100vh - 7rem);
+            overflow-y: auto;
+        }
+
+        .nav-list {
+            list-style: none;
             background: white;
             border-radius: 12px;
-            padding: 1.5rem;
-            margin-bottom: 1.5rem;
+            padding: 1rem;
             box-shadow: 0 4px 6px rgba(0,0,0,0.05);
         }
-        .lesson-content {
-            display: none;
-            padding: 1rem;
-            background: #f8fafc;
+
+        .nav-item {
+            padding: 0.75rem;
             border-radius: 8px;
-            margin-top: 1rem;
-            border-left: 4px solid var(--primary);
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
         }
-        .vocab-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-            gap: 12px;
-            margin-top: 1rem;
+
+        .nav-item:hover {
+            background: var(--light);
         }
-        .vocab-card {
-            background: white;
-            padding: 12px;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-            text-align: center;
-        }
-        .grammar-section {
-            margin-bottom: 1.5rem;
-        }
-        .btn {
-            display: inline-block;
-            padding: 12px 24px;
+
+        .nav-item.active {
             background: var(--primary);
             color: white;
-            border: none;
-            border-radius: 8px;
+        }
+
+        /* Content Sections */
+        .content-section {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+
+        /* Interactive Vocabulary Cards */
+        .vocab-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .vocab-card {
+            background: var(--light);
+            border-radius: 12px;
+            padding: 1.5rem;
+            text-align: center;
+            transition: transform 0.3s;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .vocab-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .vocab-card::after {
+            content: "▶";
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            color: var(--primary);
+            font-size: 1.2rem;
+        }
+
+        /* Grammar Accordion */
+        .accordion {
+            margin-top: 1.5rem;
+        }
+
+        .accordion-item {
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .accordion-header {
+            padding: 1rem;
             font-weight: 600;
             cursor: pointer;
-            margin-top: 1rem;
-            transition: all 0.2s;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
-        .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(66, 133, 244, 0.3);
+
+        .accordion-content {
+            padding: 0 1rem 1rem;
+            display: none;
+        }
+
+        /* Interactive Quiz System */
+        .quiz-container {
+            background: var(--light);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-top: 2rem;
+        }
+
+        .quiz-progress {
+            height: 8px;
+            background: #e2e8f0;
+            border-radius: 4px;
+            margin-bottom: 1.5rem;
+        }
+
+        .quiz-progress-bar {
+            height: 100%;
+            background: var(--secondary);
+            border-radius: 4px;
+            transition: width 0.5s;
+        }
+
+        /* Achievement System */
+        .badge-container {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .badge {
+            background: var(--light);
+            border-radius: 24px;
+            padding: 0.75rem 1.25rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            border: 2px solid var(--primary);
         }
     </style>
 </head>
 <body>
-    <header>
-        <h1>English Master</h1>
-        <p>Panduan Lengkap Bahasa Inggris dari A-Z</p>
+    <header class="app-bar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <span class="material-icons">language</span>
+                English Master Pro
+            </div>
+        </div>
     </header>
 
-    <div class="tab-buttons">
-        <button class="tab-btn active" onclick="openTab('vocabulary')">Kosakata</button>
-        <button class="tab-btn" onclick="openTab('grammar')">Tata Bahasa</button>
-        <button class="tab-btn" onclick="openTab('conversation')">Percakapan</button>
-        <button class="tab-btn" onclick="openTab('resources')">Sumber Belajar</button>
-    </div>
+    <main class="main-grid">
+        <!-- Side Navigation -->
+        <nav class="side-nav">
+            <ul class="nav-list">
+                <li class="nav-item active">
+                    <span class="material-icons">dashboard</span>
+                    Dashboard
+                </li>
+                <li class="nav-item">
+                    <span class="material-icons">library_books</span>
+                    Grammar Master
+                </li>
+                <li class="nav-item">
+                    <span class="material-icons">translate</span>
+                    Vocabulary Bank
+                </li>
+                <li class="nav-item">
+                    <span class="material-icons">mic</span>
+                    Speaking Lab
+                </li>
+                <li class="nav-item">
+                    <span class="material-icons">assignment</span>
+                    Progress Tracker
+                </li>
+            </ul>
+        </nav>
 
-    <!-- TAB KOSAKATA -->
-    <div id="vocabulary-tab" class="tab-content">
-        <div class="card">
-            <h2>Kosakata Inti (500+ Kata)</h2>
-            <button class="btn" onclick="showLesson('core-vocabulary')">Buka Daftar</button>
-            
-            <div id="core-vocabulary" class="lesson-content">
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Vocabulary Section -->
+            <section class="content-section">
+                <h2>Vocabulary Builder</h2>
                 <div class="vocab-grid">
-                    <!-- Kategori 1: Penyapa -->
                     <div class="vocab-card">
-                        <strong>Hello</strong>
-                        <p>Halo</p>
+                        <h3>Daily Conversations</h3>
+                        <p>500+ Essential Words</p>
                     </div>
                     <div class="vocab-card">
-                        <strong>Goodbye</strong>
-                        <p>Selamat tinggal</p>
+                        <h3>Business English</h3>
+                        <p>300+ Professional Terms</p>
                     </div>
-                    <!-- Tambahkan lebih banyak -->
+                    <!-- Add more categories -->
                 </div>
-            </div>
-        </div>
-        
-        <!-- Tambahkan lebih banyak kategori kosakata -->
-    </div>
+            </section>
 
-    <!-- TAB TATA BAHASA -->
-    <div id="grammar-tab" class="tab-content" style="display:none;">
-        <div class="card">
-            <h2>16 Tenses Mastery</h2>
-            <button class="btn" onclick="showLesson('tenses')">Pelajari</button>
-            
-            <div id="tenses" class="lesson-content">
-                <div class="grammar-section">
-                    <h3>1. Present Simple</h3>
-                    <p><strong>Rumus:</strong> Subject + V1 (s/es)</p>
-                    <p><strong>Contoh:</strong> She <u>works</u> at a hospital.</p>
-                    <p><strong>Penggunaan:</strong> Kebiasaan, fakta umum</p>
+            <!-- Grammar Section -->
+            <section class="content-section">
+                <h2>Grammar Masterclass</h2>
+                <div class="accordion">
+                    <div class="accordion-item">
+                        <div class="accordion-header">
+                            <span>16 Tenses Mastery</span>
+                            <span class="material-icons">expand_more</span>
+                        </div>
+                        <div class="accordion-content">
+                            <!-- Detailed tense explanations -->
+                        </div>
+                    </div>
+                    <!-- Add more grammar topics -->
                 </div>
-                
-                <div class="grammar-section">
-                    <h3>2. Present Continuous</h3>
-                    <p><strong>Rumus:</strong> Subject + am/is/are + V-ing</p>
-                    <p><strong>Contoh:</strong> They <u>are playing</u> football.</p>
-                    <p><strong>Penggunaan:</strong> Aktivitas sedang berlangsung</p>
-                </div>
-                
-                <!-- Lengkapi semua 16 tenses -->
-            </div>
-        </div>
-        
-        <!-- Tambahkan lebih banyak materi grammar -->
-    </div>
+            </section>
 
-    <!-- TAB PERCAKAPAN -->
-    <div id="conversation-tab" class="tab-content" style="display:none;">
-        <div class="card">
-            <h2>Percakapan Sehari-hari</h2>
-            <button class="btn" onclick="showLesson('daily-convo')">Buka Dialog</button>
-            
-            <div id="daily-convo" class="lesson-content">
-                <h3>Di Restoran</h3>
-                <p><strong>A:</strong> Can I get a menu, please?<br>
-                   <strong>B:</strong> Here you go. Are you ready to order?</p>
-                
-                <h3>Di Bandara</h3>
-                <p><strong>A:</strong> Where is the boarding gate for flight 707?<br>
-                   <strong>B:</strong> It's at gate C12, just follow the signs.</p>
-            </div>
+            <!-- Interactive Quiz -->
+            <section class="content-section">
+                <h2>Smart Quiz System</h2>
+                <div class="quiz-container">
+                    <div class="quiz-progress">
+                        <div class="quiz-progress-bar" style="width: 30%"></div>
+                    </div>
+                    <!-- Quiz content -->
+                </div>
+            </section>
         </div>
-    </div>
+    </main>
 
     <script>
-        // Sistem Tab
-        function openTab(tabName) {
-            document.querySelectorAll('.tab-content').forEach(tab => {
-                tab.style.display = 'none';
-            });
-            document.getElementById(`${tabName}-tab`).style.display = 'block';
-            
-            document.querySelectorAll('.tab-btn').forEach(btn => {
-                btn.classList.remove('active');
-            });
-            document.querySelector(`.tab-btn[onclick="openTab('${tabName}')"]`).classList.add('active');
+        // Advanced Learning System
+        class EnglishMaster {
+            constructor() {
+                this.userProgress = JSON.parse(localStorage.getItem('userProgress')) || {
+                    vocabulary: 0,
+                    grammar: 0,
+                    quizzes: []
+                };
+                
+                this.initEventListeners();
+                this.loadContent();
+            }
+
+            initEventListeners() {
+                // Accordion functionality
+                document.querySelectorAll('.accordion-header').forEach(header => {
+                    header.addEventListener('click', () => {
+                        const content = header.nextElementSibling;
+                        content.style.display = 
+                            content.style.display === 'block' ? 'none' : 'block';
+                    });
+                });
+
+                // Navigation
+                document.querySelectorAll('.nav-item').forEach(item => {
+                    item.addEventListener('click', () => {
+                        document.querySelectorAll('.nav-item').forEach(i => 
+                            i.classList.remove('active'));
+                        item.classList.add('active');
+                        this.loadSection(item.dataset.section);
+                    });
+                });
+            }
+
+            loadContent() {
+                // Dynamic content loading
+                // Can be expanded with API integration
+            }
+
+            updateProgress(category, value) {
+                this.userProgress[category] = Math.min(
+                    this.userProgress[category] + value, 
+                    100
+                );
+                localStorage.setItem('userProgress', 
+                    JSON.stringify(this.userProgress));
+                this.updateUI();
+            }
+
+            updateUI() {
+                // Update progress bars and badges
+            }
         }
 
-        // Sistem Pembelajaran
-        function showLesson(lessonId) {
-            document.querySelectorAll('.lesson-content').forEach(lesson => {
-                lesson.style.display = 'none';
-            });
-            document.getElementById(lessonId).style.display = 'block';
-        }
-
-        // Auto-scroll ke konten yang dibuka
-        function scrollToLesson(lessonId) {
-            showLesson(lessonId);
-            document.getElementById(lessonId).scrollIntoView({
-                behavior: 'smooth'
-            });
-        }
+        // Initialize app
+        const englishApp = new EnglishMaster();
     </script>
 </body>
 </html>
